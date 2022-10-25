@@ -33,8 +33,7 @@ int main()
 	menu();
 }
 
-void menu()
-{
+void menu() {
 	int op = 0;
 	while (op != 5) {
 		system("cls"); // somente no windows
@@ -68,10 +67,9 @@ void menu()
 	}
 }
 
-void inicializar()
-{
+void inicializar() {
 
-	// provisório porque não libera a memoria usada pela arvore
+	// provisï¿½rio porque nï¿½o libera a memoria usada pela arvore
 	NO* raiz = NULL;
 	
 	cout << "Arvore inicializada \n";
@@ -79,8 +77,7 @@ void inicializar()
 }
 
 
-void inserir()
-{
+void inserir() {
 	int valor;
 	cout << "Digite o elemento: ";
 	cin >> valor;
@@ -88,10 +85,8 @@ void inserir()
 		raiz = criaNO(valor);
 	}
 	else {
-		 insereArvore(raiz, valor);
+		insereArvore(raiz, valor);
 	}
-
-
 }
 
 void exibirQuantidade() {
@@ -104,13 +99,10 @@ void exibir() {
 }
 
 
-NO* criaNO(int valor)
-{
+NO* criaNO(int valor) {
 	NO* novo = (NO*)malloc(sizeof(NO));
 	if (novo == NULL)
-	{
 		return NULL;
-	}
 
 	novo->valor = valor;
 	novo->esq = NULL;
@@ -119,21 +111,31 @@ NO* criaNO(int valor)
 	return novo;
 }
 
-NO* insereArvore(NO* no, int valor)
-{
-	
+NO* insereArvore(NO* no, int valor) {
+	if(no == NULL) {
+		no = criaNO(valor);
+		return no;
+	}
+
+	if(no->valor > valor)
+		return insereArvore(no->dir, valor);
+	else
+		return insereArvore(no->esq, valor);
 }
 
-int elementosArvore(NO* no)
-{
-	if (no == NULL) {
+int elementosArvore(NO* no) {
+	if (no == NULL)
 		return 0;
-	}
 
 	return 1 + elementosArvore(no->esq) + elementosArvore(no->dir);
 }
 
-void exibirElementosArvore(NO* no)
-{
-	
+void exibirElementosArvore(NO* no) {
+	if(no == NULL)
+		return;
+
+	cout << no->valor << endl;
+
+	exibirElementosArvore(no->dir);
+	exibirElementosArvore(no->esq);
 }
